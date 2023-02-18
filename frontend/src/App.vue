@@ -1,20 +1,33 @@
 <template>
-  <header>
-    <nav class="header">
-      <div class="header__logo">
-        <h1>NetGeniaWeb</h1>
-      </div>
-      <router-view></router-view>
-      <ul class="header__tabs">
-        <li class="header__tab" v-for="(tab, index) in tabs" :key="index">
-          <button @click="confirmInput(tab.route)" style="height: 60px; width:120px; color: brown;">{{ tab.label }}</button>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <v-app>
+    <v-app-bar>
+      <v-menu anchor="bottom end"  class="header">
+
+      <v-app-bar-title class="header__logo">
+          <img src="../src/resources/logo1.png" class="mx-2">
+          <h1>NetGeniaWeb</h1>
+      </v-app-bar-title>
+
+        <v-list class="header__tabs">
+          <v-list-item class="header__tab" v-for="(tab, index) in tabs" :key="index">
+            <v-btn @click="confirmInput(tab.route)" style="height: 60px; width:120px; color: brown;">{{ tab.label }}</v-btn>
+          </v-list-item>
+        </v-list>
+
+      </v-menu>
+    </v-app-bar>
+
+    <v-main>
+      <v-container>
+        <router-view/>
+      </v-container>
+    </v-main>
+
+  </v-app>
 </template>
 
 <script>
+
 
 export default {
   name: 'App',
@@ -51,18 +64,29 @@ export default {
   margin-top: 60px;
 }
 
- .header {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   padding: 1rem;
-   background-color: #6ca38f;
-   color: black;
- }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -3.5%;
+  margin-left: -1%;
+  padding: 1rem;
+  background-color: black;
+  color: #6ca38f;
+  width: 100%;
+  /*background-color: #6ca38f;*/
+}
 
 .header__logo h1 {
-  margin: 0;
+  margin-left: 50%;
+  margin-top: -27%;
 }
+
+.header__logo img {
+  margin-left: -50%;
+}
+
+
 
 .header__tabs {
   display: flex;
@@ -75,8 +99,21 @@ export default {
   margin-right: 1rem;
 }
 
-.header__tab-link {
-  color: black;
-  text-decoration: none;
+@media (max-width: 767px) {
+  .header{
+    width: 100%;
+    margin-top: -10%;
+    margin-left: -5%;
+  }
+
+  .header__logo{
+    margin-left: 3%;
+  }
+
+  .header__logo h1{
+    font-size: 100%;
+    margin-top: -5%;
+  }
 }
+
 </style>

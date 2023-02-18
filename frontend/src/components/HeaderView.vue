@@ -1,20 +1,29 @@
 <template>
-  <header>
-    <nav class="header">
-      <div class="header__logo">
-        <h1>NetGeniaWeb</h1>
-      </div>
-      <ul class="header__tabs">
-        <li class="header__tab" v-for="(tab, index) in tabs" :key="index">
-          <router-link :to="tab.route" class="header__tab-link">{{tab.label}}</router-link>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <v-app>
+    <v-app-bar color="green">
+      <v-app-bar-title>
+        <div class="header__logo">
+          <h1 style="text-align: left; margin-left: 3%">NetGeniaWeb</h1>
+        </div>
+      </v-app-bar-title>
+
+      <v-menu anchor="bottom end" v-model="userMenuShown" class="header">
+        <router-view></router-view>
+          <v-list-item class="header__tabs">
+            <li class="header__tab" v-for="(tab, index) in tabs" :key="index">
+              <button @click="confirmInput(tab.route)" style="height: 60px; width:120px; color: brown;">{{ tab.label }}</button>
+            </li>
+          </v-list-item>
+      </v-menu>
+    </v-app-bar>
+  </v-app>
 </template>
 
 <script>
+
 export default {
+  name: 'App',
+
   data() {
     return {
       tabs: [
@@ -23,13 +32,30 @@ export default {
         {label: 'Services', route: '/services'},
         {label: 'Contact', route: '/contact'},
         {label: 'FAQ', route: '/faq'},
+        {label: 'Login', route: '/login'}
+
       ],
     };
   },
-};
+
+  methods:{
+    confirmInput(route){
+      this.$router.push(route);
+    }
+  }
+}
 </script>
 
 <style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
 .header {
   display: flex;
   align-items: center;
